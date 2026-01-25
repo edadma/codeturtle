@@ -1,0 +1,86 @@
+---
+title: Squares
+description: Drawing squares and rectangles
+---
+
+## The Simple Square
+
+A square has 4 equal sides and 4 right angles (90°):
+
+```logo
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+```
+
+## Using Repeat
+
+Since we do the same thing 4 times, use `repeat`:
+
+```logo
+repeat 4 [forward 100 right 90]
+```
+
+Much cleaner! The turtle moves forward, turns right, and repeats 4 times.
+
+## Different Sizes
+
+Change the number to make different sized squares:
+
+```logo
+repeat 4 [forward 50 right 90]   ; Small square
+repeat 4 [forward 100 right 90]  ; Medium square
+repeat 4 [forward 200 right 90]  ; Large square
+```
+
+## Nested Squares
+
+Draw squares inside squares:
+
+```logo
+repeat 4 [forward 100 right 90]
+penup
+forward 20
+right 90
+forward 20
+left 90
+pendown
+repeat 4 [forward 60 right 90]
+```
+
+## Rotated Squares
+
+Draw the same square multiple times with small rotations:
+
+```logo
+repeat 36 [
+  repeat 4 [forward 100 right 90]
+  right 10
+]
+```
+
+This creates a beautiful circular pattern of overlapping squares!
+
+## Rectangles
+
+Rectangles have different widths and heights:
+
+```logo
+repeat 2 [
+  forward 150    ; Long side
+  right 90
+  forward 75     ; Short side
+  right 90
+]
+```
+
+## Try It
+
+1. Draw 5 squares in a row, each larger than the last
+2. Create a square spiral (squares rotating and growing)
+3. Make a checkerboard pattern (8x8 squares, alternating filled/empty)

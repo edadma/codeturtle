@@ -1,0 +1,75 @@
+---
+title: Pen Control
+description: Control when the turtle draws
+---
+
+## Pen Up and Pen Down
+
+The turtle carries a pen. When the pen is **down**, it draws. When it's **up**, it moves without drawing.
+
+```logo
+penup          ; Lift the pen (stop drawing)
+pu             ; Short form
+
+pendown        ; Lower the pen (start drawing)
+pd             ; Short form
+```
+
+## Moving Without Drawing
+
+Use `penup` to reposition the turtle:
+
+```logo
+; Draw a square
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+
+; Move to a new position without drawing
+penup
+forward 150
+pendown
+
+; Draw another square
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+```
+
+## Drawing Dashed Lines
+
+Alternate between pen up and pen down:
+
+```logo
+repeat 10 [
+  pendown
+  forward 10
+  penup
+  forward 10
+]
+```
+
+## Pen State
+
+You can check or reset the pen:
+
+```logo
+home           ; Return turtle to center, facing up
+clean          ; Erase all drawings (turtle stays)
+clearscreen    ; Erase all and reset turtle (or cs)
+```
+
+## Try It
+
+1. Draw two squares side by side (use `penup` to move between them)
+2. Create a dashed circle using pen up/down with small movements
+3. Draw your initials using lines and `penup` to move between letters

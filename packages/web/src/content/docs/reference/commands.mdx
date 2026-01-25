@@ -1,0 +1,91 @@
+---
+title: Command Reference
+description: Complete list of Logo commands
+---
+
+## Movement Commands
+
+| Command | Short | Description | Example |
+|---------|-------|-------------|---------|
+| `forward` | `fd` | Move forward | `forward 100` |
+| `back` | `bk` | Move backward | `back 50` |
+| `right` | `rt` | Turn clockwise | `right 90` |
+| `left` | `lt` | Turn counter-clockwise | `left 45` |
+| `home` | | Return to center | `home` |
+| `setxy` | | Go to coordinates | `setxy 100 50` |
+| `setx` | | Set x position | `setx 100` |
+| `sety` | | Set y position | `sety -50` |
+| `setheading` | `seth` | Set direction | `setheading 90` |
+
+## Pen Commands
+
+| Command | Short | Description | Example |
+|---------|-------|-------------|---------|
+| `penup` | `pu` | Stop drawing | `penup` |
+| `pendown` | `pd` | Start drawing | `pendown` |
+| `setpencolor` | `setpc` | Change pen color | `setpencolor "red` |
+| `setpensize` | | Change line width | `setpensize 5` |
+
+## Screen Commands
+
+| Command | Short | Description | Example |
+|---------|-------|-------------|---------|
+| `clearscreen` | `cs` | Clear and reset | `clearscreen` |
+| `clean` | | Clear drawings only | `clean` |
+| `hideturtle` | `ht` | Hide turtle | `hideturtle` |
+| `showturtle` | `st` | Show turtle | `showturtle` |
+
+## Control Structures
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `repeat` | Loop n times | `repeat 4 [fd 100 rt 90]` |
+| `if` | Conditional | `if :x > 10 [fd 100]` |
+| `ifelse` | If-then-else | `ifelse :x > 0 [fd :x] [bk :x]` |
+| `stop` | Exit procedure | `if :n = 0 [stop]` |
+
+## Variables
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `make` | Create/set variable | `make "size 100` |
+| `localmake` | Local variable | `localmake "i 1` |
+| `:name` | Get variable value | `forward :size` |
+
+## Procedures
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `to` | Define procedure | `to square :size` |
+| `end` | End definition | `end` |
+
+## Math Operations
+
+| Operator | Description | Example |
+|----------|-------------|---------|
+| `+` | Addition | `:x + 10` |
+| `-` | Subtraction | `:x - 5` |
+| `*` | Multiplication | `:x * 2` |
+| `/` | Division | `360 / :sides` |
+| `remainder` | Modulo | `remainder :i 6` |
+| `sqrt` | Square root | `sqrt 2` |
+| `random` | Random number | `random 100` |
+
+## Comparison
+
+| Operator | Description | Example |
+|----------|-------------|---------|
+| `=` | Equal | `:x = 0` |
+| `<` | Less than | `:x < 10` |
+| `>` | Greater than | `:x > 5` |
+| `<=` | Less or equal | `:x <= 100` |
+| `>=` | Greater or equal | `:x >= 0` |
+
+## Special Values
+
+| Value | Description |
+|-------|-------------|
+| `repcount` | Current repeat iteration |
+| `heading` | Current direction (degrees) |
+| `xcor` | Current x position |
+| `ycor` | Current y position |

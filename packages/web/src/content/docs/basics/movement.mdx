@@ -1,0 +1,57 @@
+---
+title: Moving the Turtle
+description: Learn the forward and back commands
+---
+
+## Forward Movement
+
+The `forward` command (or `fd` for short) moves the turtle in the direction it's facing:
+
+```logo
+forward 100    ; Move forward 100 steps
+fd 50          ; Short form - move forward 50 steps
+```
+
+The number after the command is the **distance** in steps. Bigger numbers = longer lines.
+
+## Backward Movement
+
+The `back` command (or `bk`) moves the turtle backward without turning around:
+
+```logo
+back 100       ; Move backward 100 steps
+bk 50          ; Short form
+```
+
+The turtle still faces the same direction - it just walks backward.
+
+## Understanding Steps
+
+Steps are screen units (pixels). Some reference points:
+
+| Steps | Approximate Size |
+|-------|------------------|
+| 10 | Very small |
+| 50 | Small |
+| 100 | Medium |
+| 200 | Large |
+| 400 | Very large |
+
+## Combining Movements
+
+You can chain commands together:
+
+```logo
+forward 100
+back 50
+forward 100
+back 50
+```
+
+This creates a dashed line effect!
+
+## Try It
+
+1. Draw a line 150 steps long
+2. Move back to the starting point
+3. Draw a series of dashes: forward 20, back 20, forward 20...

@@ -1,0 +1,120 @@
+---
+title: Procedures
+description: Create your own reusable commands
+---
+
+## What is a Procedure?
+
+A procedure is a custom command you create. Instead of typing the same code over and over, define it once and reuse it.
+
+## Defining a Procedure
+
+```logo
+to square
+  repeat 4 [forward 100 right 90]
+end
+```
+
+Now you can just type:
+
+```logo
+square
+```
+
+## Syntax
+
+```logo
+to name
+  commands
+end
+```
+
+- `to` - Starts the definition
+- `name` - Your procedure's name
+- `commands` - What the procedure does
+- `end` - Ends the definition
+
+## Procedures with Inputs
+
+Make procedures flexible with parameters:
+
+```logo
+to square :size
+  repeat 4 [forward :size right 90]
+end
+```
+
+The `:size` is an **input** (parameter). Use it like this:
+
+```logo
+square 50     ; Small square
+square 100    ; Medium square
+square 200    ; Large square
+```
+
+## Multiple Inputs
+
+```logo
+to rectangle :width :height
+  repeat 2 [
+    forward :height
+    right 90
+    forward :width
+    right 90
+  ]
+end
+
+rectangle 150 75
+```
+
+## Procedure with Color
+
+```logo
+to colorsquare :size :color
+  setpencolor :color
+  repeat 4 [forward :size right 90]
+end
+
+colorsquare 100 "red
+colorsquare 80 "blue
+colorsquare 60 "green
+```
+
+## Polygon Procedure
+
+```logo
+to polygon :sides :size
+  repeat :sides [
+    forward :size
+    right 360 / :sides
+  ]
+end
+
+polygon 3 100    ; Triangle
+polygon 5 80     ; Pentagon
+polygon 8 60     ; Octagon
+```
+
+## Procedures Calling Procedures
+
+```logo
+to flower
+  repeat 6 [
+    petal
+    right 60
+  ]
+end
+
+to petal
+  repeat 60 [forward 2 right 2]
+  repeat 60 [forward 2 right 2]
+end
+
+flower
+```
+
+## Try It
+
+1. Create a `triangle` procedure with a size parameter
+2. Make a `star` procedure that draws a 5-pointed star
+3. Write a `house` procedure using your `square` and `triangle` procedures

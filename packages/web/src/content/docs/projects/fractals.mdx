@@ -1,0 +1,184 @@
+---
+title: Fractals
+description: Create self-similar recursive patterns
+---
+
+## What are Fractals?
+
+Fractals are patterns that look similar at every scale. Zoom in, and you see the same pattern repeated smaller. They appear throughout nature - in trees, coastlines, snowflakes, and more.
+
+## Sierpinski Triangle
+
+The classic fractal triangle:
+
+```logo
+to sierpinski :size :depth
+  if :depth = 0 [
+    repeat 3 [forward :size right 120]
+    stop
+  ]
+
+  sierpinski :size / 2 :depth - 1
+  forward :size / 2
+  sierpinski :size / 2 :depth - 1
+  back :size / 2
+  left 60
+  forward :size / 2
+  right 60
+  sierpinski :size / 2 :depth - 1
+  left 60
+  back :size / 2
+  right 60
+end
+
+sierpinski 200 4
+```
+
+## Koch Curve
+
+Each line becomes 4 smaller lines:
+
+```logo
+to koch :size :depth
+  if :depth = 0 [
+    forward :size
+    stop
+  ]
+
+  koch :size / 3 :depth - 1
+  left 60
+  koch :size / 3 :depth - 1
+  right 120
+  koch :size / 3 :depth - 1
+  left 60
+  koch :size / 3 :depth - 1
+end
+
+koch 300 4
+```
+
+## Koch Snowflake
+
+Three Koch curves form a snowflake:
+
+```logo
+to snowflake :size :depth
+  repeat 3 [
+    koch :size :depth
+    right 120
+  ]
+end
+
+snowflake 150 3
+```
+
+## Binary Tree
+
+A simple recursive tree:
+
+```logo
+to tree :size :depth
+  if :depth = 0 [stop]
+
+  forward :size
+  left 45
+  tree :size * 0.7 :depth - 1
+  right 90
+  tree :size * 0.7 :depth - 1
+  left 45
+  back :size
+end
+
+penup back 100 pendown
+tree 80 8
+```
+
+## Random Tree
+
+More natural-looking with randomness:
+
+```logo
+to naturaltree :size :depth
+  if :depth = 0 [stop]
+  if :size < 3 [stop]
+
+  forward :size
+  left 20 + random 30
+  naturaltree :size * 0.7 :depth - 1
+  right 40 + random 30
+  naturaltree :size * 0.7 :depth - 1
+  left 20
+  back :size
+end
+
+naturaltree 60 7
+```
+
+## Dragon Curve
+
+A space-filling fractal:
+
+```logo
+to dragon :size :depth :sign
+  if :depth = 0 [
+    forward :size
+    stop
+  ]
+
+  left 45 * :sign
+  dragon :size / 1.414 :depth - 1 1
+  right 90 * :sign
+  dragon :size / 1.414 :depth - 1 -1
+  left 45 * :sign
+end
+
+dragon 200 10 1
+```
+
+## Hilbert Curve
+
+Another space-filling curve:
+
+```logo
+to hilbert :size :depth :angle
+  if :depth = 0 [stop]
+
+  right :angle
+  hilbert :size :depth - 1 (- :angle)
+  forward :size
+  left :angle
+  hilbert :size :depth - 1 :angle
+  forward :size
+  hilbert :size :depth - 1 :angle
+  left :angle
+  forward :size
+  hilbert :size :depth - 1 (- :angle)
+  right :angle
+end
+
+hilbert 5 5 90
+```
+
+## Fractal Plant
+
+L-system style plant:
+
+```logo
+to plant :size :depth
+  if :depth = 0 [stop]
+
+  setpencolor "brown
+  forward :size
+  setpencolor "green
+
+  left 25
+  plant :size * 0.7 :depth - 1
+  right 50
+  plant :size * 0.7 :depth - 1
+  left 25
+  back :size
+end
+
+penup back 150 pendown
+plant 50 6
+```

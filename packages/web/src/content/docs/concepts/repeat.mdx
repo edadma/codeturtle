@@ -1,0 +1,109 @@
+---
+title: Repeat Loops
+description: Learn to repeat commands automatically
+---
+
+## Why Repeat?
+
+Instead of writing this:
+
+```logo
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+```
+
+Write this:
+
+```logo
+repeat 4 [forward 100 right 90]
+```
+
+The `repeat` command runs the instructions in brackets multiple times.
+
+## Syntax
+
+```logo
+repeat count [commands]
+```
+
+- `count` - How many times to repeat
+- `[commands]` - What to repeat (in square brackets)
+
+## Examples
+
+### Square
+```logo
+repeat 4 [forward 100 right 90]
+```
+
+### Triangle
+```logo
+repeat 3 [forward 100 right 120]
+```
+
+### Circle (approximation)
+```logo
+repeat 360 [forward 1 right 1]
+```
+
+### Dashed line
+```logo
+repeat 10 [forward 10 penup forward 10 pendown]
+```
+
+## Nested Repeats
+
+Put repeats inside repeats:
+
+```logo
+repeat 4 [
+  repeat 4 [forward 50 right 90]
+  right 90
+]
+```
+
+This draws 4 squares, each rotated 90°.
+
+## Spiral Pattern
+
+```logo
+repeat 100 [
+  forward repcount
+  right 90
+]
+```
+
+The `repcount` variable gives the current iteration (1, 2, 3...).
+
+## Common Patterns
+
+### Grid of Shapes
+```logo
+repeat 3 [
+  repeat 3 [
+    repeat 4 [forward 30 right 90]
+    penup forward 50 pendown
+  ]
+  penup back 150 right 90 forward 50 left 90 pendown
+]
+```
+
+### Circular Arrangement
+```logo
+repeat 12 [
+  repeat 4 [forward 50 right 90]
+  right 30
+]
+```
+
+## Try It
+
+1. Draw 10 circles in a row
+2. Create a staircase pattern using repeat
+3. Make a spiral that grows larger with each loop

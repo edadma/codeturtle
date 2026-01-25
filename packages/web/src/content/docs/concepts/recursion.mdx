@@ -1,0 +1,133 @@
+---
+title: Recursion
+description: Procedures that call themselves
+---
+
+## What is Recursion?
+
+Recursion is when a procedure calls itself. This creates patterns that repeat with variations - perfect for fractals and natural shapes.
+
+## Simple Example
+
+```logo
+to countdown :n
+  if :n = 0 [stop]
+  print :n
+  countdown :n - 1
+end
+
+countdown 5   ; Prints 5, 4, 3, 2, 1
+```
+
+The procedure calls itself with a smaller number until it reaches 0.
+
+## The Two Requirements
+
+Every recursive procedure needs:
+
+1. **Base case** - When to stop (prevents infinite loops)
+2. **Recursive case** - Calling itself with a changed value
+
+## Recursive Spiral
+
+```logo
+to spiral :size
+  if :size > 200 [stop]      ; Base case: stop when too big
+  forward :size
+  right 90
+  spiral :size + 5           ; Recursive call with larger size
+end
+
+spiral 5
+```
+
+## Tree
+
+A classic recursive pattern:
+
+```logo
+to tree :size
+  if :size < 5 [stop]
+
+  forward :size
+  right 30
+  tree :size * 0.7           ; Right branch
+  left 60
+  tree :size * 0.7           ; Left branch
+  right 30
+  back :size
+end
+
+tree 100
+```
+
+Each branch creates two smaller branches!
+
+## Sierpinski Triangle
+
+A famous fractal:
+
+```logo
+to sierpinski :size :depth
+  if :depth = 0 [
+    repeat 3 [forward :size right 120]
+    stop
+  ]
+
+  sierpinski :size / 2 :depth - 1
+  forward :size / 2
+  sierpinski :size / 2 :depth - 1
+  back :size / 2
+  left 60
+  forward :size / 2
+  right 60
+  sierpinski :size / 2 :depth - 1
+  left 60
+  back :size / 2
+  right 60
+end
+
+sierpinski 200 4
+```
+
+## Koch Snowflake
+
+```logo
+to koch :size :depth
+  if :depth = 0 [
+    forward :size
+    stop
+  ]
+
+  koch :size / 3 :depth - 1
+  left 60
+  koch :size / 3 :depth - 1
+  right 120
+  koch :size / 3 :depth - 1
+  left 60
+  koch :size / 3 :depth - 1
+end
+
+to snowflake :size :depth
+  repeat 3 [
+    koch :size :depth
+    right 120
+  ]
+end
+
+snowflake 200 3
+```
+
+## Why Recursion Works
+
+The key insight: complex patterns are often made of smaller copies of themselves.
+
+- A tree branch is a tiny tree
+- A snowflake edge is made of smaller snowflake edges
+- Each level adds detail
+
+## Try It
+
+1. Modify the tree to have 3 branches instead of 2
+2. Create a recursive square spiral
+3. Draw a "dragon curve" fractal

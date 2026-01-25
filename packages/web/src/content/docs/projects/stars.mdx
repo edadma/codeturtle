@@ -1,0 +1,154 @@
+---
+title: Stars
+description: Draw stars with different numbers of points
+---
+
+## 5-Pointed Star
+
+The classic star shape:
+
+```logo
+repeat 5 [
+  forward 100
+  right 144
+]
+```
+
+Why 144°? We skip every other vertex: 360° × 2 ÷ 5 = 144°
+
+## Star Procedure
+
+Make it reusable:
+
+```logo
+to star :points :size
+  repeat :points [
+    forward :size
+    right 180 - 180 / :points
+  ]
+end
+
+star 5 100
+star 7 80
+star 9 60
+```
+
+## 6-Pointed Star (Star of David)
+
+Two overlapping triangles:
+
+```logo
+repeat 3 [forward 100 right 120]
+penup
+forward 100
+right 150
+pendown
+repeat 3 [forward 100 right 120]
+```
+
+## Star Burst
+
+Multiple stars from the center:
+
+```logo
+to starburst :rays :length
+  repeat :rays [
+    forward :length
+    back :length
+    right 360 / :rays
+  ]
+end
+
+starburst 12 100
+```
+
+## Filled Star Look
+
+Thicker lines give a filled appearance:
+
+```logo
+setpensize 5
+repeat 5 [
+  forward 100
+  right 144
+]
+```
+
+## Nested Stars
+
+Stars inside stars:
+
+```logo
+to nestedstars :size :count
+  if :count = 0 [stop]
+
+  repeat 5 [forward :size right 144]
+
+  penup
+  right 36
+  forward :size / 3
+  left 36
+  pendown
+
+  nestedstars :size * 0.6 :count - 1
+end
+
+nestedstars 150 5
+```
+
+## Rainbow Star
+
+Each point a different color:
+
+```logo
+make "colors [red orange yellow green blue]
+repeat 5 [
+  setpencolor item repcount :colors
+  forward 100
+  right 144
+]
+```
+
+## Spinning Star
+
+Star that appears to rotate:
+
+```logo
+repeat 36 [
+  repeat 5 [forward 80 right 144]
+  right 10
+]
+```
+
+## Starfield
+
+Random stars across the canvas:
+
+```logo
+to randomstar
+  penup
+  setxy (random 400) - 200 (random 400) - 200
+  pendown
+  repeat 5 [forward 10 + random 20 right 144]
+end
+
+repeat 20 [randomstar]
+```
+
+## Challenge: American Flag Star Pattern
+
+```logo
+to flagstar :size
+  repeat 5 [forward :size right 144]
+end
+
+; 5 rows of stars, alternating 6 and 5
+repeat 5 [
+  ; Draw 6 stars if odd row, 5 if even
+  penup setxy -150 100 - (repcount * 20) pendown
+  repeat 6 [
+    flagstar 8
+    penup forward 25 pendown
+  ]
+]
+```

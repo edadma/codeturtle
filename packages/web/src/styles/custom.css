@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  --sl-color-accent: #10b981;
+  --sl-color-accent-low: #064e3b;
+  --sl-color-accent-high: #6ee7b7;
+  --sl-color-bg-nav: var(--sl-color-bg);
+}
+
+:root[data-theme="light"] {
+  --sl-color-accent: #059669;
+  --sl-color-accent-low: #d1fae5;
+  --sl-color-accent-high: #064e3b;
+}
+
+/* Turtle canvas styling */
+.turtle-canvas {
+  background: #1a1a2e;
+  border-radius: 0.5rem;
+  border: 2px solid var(--sl-color-accent);
+}
+
+/* Code blocks */
+.code-example {
+  background: var(--sl-color-bg-sidebar);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+/* Tutorial steps */
+.step {
+  border-left: 3px solid var(--sl-color-accent);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: var(--sl-color-accent);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* Interactive demo area */
+.demo-area {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+
+/* Turtle sprite */
+.turtle-sprite {
+  transition: transform 0.3s ease;
+}
+
+/* Hero section adjustments */
+.hero {
+  padding-block: 2rem;
+}
+
+/* Command reference table */
+.command-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.command-table th,
+.command-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.command-table code {
+  background: var(--sl-color-bg-sidebar);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+}

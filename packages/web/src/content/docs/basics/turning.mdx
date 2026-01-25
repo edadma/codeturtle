@@ -1,0 +1,58 @@
+---
+title: Turning
+description: Learn how to change the turtle's direction
+---
+
+## Right Turns
+
+The `right` command (or `rt`) rotates the turtle clockwise:
+
+```logo
+right 90       ; Turn right 90 degrees
+rt 45          ; Short form - turn right 45 degrees
+```
+
+## Left Turns
+
+The `left` command (or `lt`) rotates the turtle counter-clockwise:
+
+```logo
+left 90        ; Turn left 90 degrees
+lt 45          ; Short form
+```
+
+## Understanding Angles
+
+Angles are measured in degrees. A full circle is 360 degrees:
+
+| Degrees | Turn Amount |
+|---------|-------------|
+| 45 | Eighth turn |
+| 60 | Sixth turn |
+| 90 | Quarter turn (right angle) |
+| 120 | Third turn |
+| 180 | Half turn (about face) |
+| 360 | Full circle (back to start) |
+
+## Common Angle Uses
+
+Different shapes need different angles:
+
+- **Square**: 90° turns (360 ÷ 4 = 90)
+- **Triangle**: 120° turns (360 ÷ 3 = 120)
+- **Pentagon**: 72° turns (360 ÷ 5 = 72)
+- **Hexagon**: 60° turns (360 ÷ 6 = 60)
+
+## The Pattern
+
+Notice the pattern? For any regular polygon:
+
+```
+turn angle = 360 ÷ number of sides
+```
+
+## Try It
+
+1. Turn right 90 degrees, then left 90 degrees - where is the turtle facing now?
+2. Make the turtle spin in a circle: `right 360`
+3. Calculate the turn angle for an octagon (8 sides)

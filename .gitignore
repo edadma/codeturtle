@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+.adonisjs/
+.idea/
+.DS_Store
+*.log
+tmp/

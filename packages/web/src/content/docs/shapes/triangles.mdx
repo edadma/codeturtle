@@ -1,0 +1,76 @@
+---
+title: Triangles
+description: Drawing different types of triangles
+---
+
+## Equilateral Triangle
+
+An equilateral triangle has 3 equal sides. The turn angle is 120° (360 ÷ 3):
+
+```logo
+repeat 3 [forward 100 right 120]
+```
+
+## Why 120 Degrees?
+
+It might seem like the angles should be 60° (since triangle interior angles are 60°). But we're measuring the **exterior** angle - how much the turtle turns at each corner:
+
+```
+exterior angle = 180° - interior angle
+exterior angle = 180° - 60° = 120°
+```
+
+Or simply: 360° ÷ 3 sides = 120°
+
+## Right Triangle
+
+A right triangle has one 90° corner:
+
+```logo
+forward 100        ; First leg
+right 90
+forward 100        ; Second leg
+right 135
+forward 141        ; Hypotenuse (approximately 100 × √2)
+```
+
+## Triangle Patterns
+
+### Spinning Triangles
+
+```logo
+repeat 12 [
+  repeat 3 [forward 100 right 120]
+  right 30
+]
+```
+
+### Triangle Spiral
+
+```logo
+make "size 10
+repeat 20 [
+  repeat 3 [forward :size right 120]
+  make "size :size + 10
+]
+```
+
+### Sierpinski Start
+
+A simple approximation of the Sierpinski triangle:
+
+```logo
+repeat 3 [
+  repeat 3 [forward 100 right 120]
+  penup
+  forward 100
+  pendown
+  right 120
+]
+```
+
+## Try It
+
+1. Draw a triangle pointing down instead of up
+2. Create a Star of David (two overlapping triangles)
+3. Make a row of connected triangles (like mountains)

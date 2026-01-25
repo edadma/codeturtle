@@ -1,0 +1,12 @@
+{
+  "name": "codeturtle",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -F @codeturtle/web dev",
+    "dev:api": "pnpm -F @codeturtle/api dev",
+    "build": "pnpm -F @codeturtle/web build",
+    "build:api": "pnpm -F @codeturtle/api build",
+    "preview": "pnpm -F @codeturtle/web preview",
+    "start:api": "pnpm -F @codeturtle/api start"
+  }
+}

@@ -1,0 +1,100 @@
+---
+title: Polygons
+description: Drawing regular polygons with any number of sides
+---
+
+## The Polygon Formula
+
+For any regular polygon:
+
+```
+turn angle = 360 ÷ number of sides
+```
+
+## Common Polygons
+
+### Pentagon (5 sides)
+```logo
+repeat 5 [forward 100 right 72]    ; 360 ÷ 5 = 72
+```
+
+### Hexagon (6 sides)
+```logo
+repeat 6 [forward 100 right 60]    ; 360 ÷ 6 = 60
+```
+
+### Heptagon (7 sides)
+```logo
+repeat 7 [forward 100 right 51.43] ; 360 ÷ 7 ≈ 51.43
+```
+
+### Octagon (8 sides)
+```logo
+repeat 8 [forward 100 right 45]    ; 360 ÷ 8 = 45
+```
+
+## Making a Polygon Procedure
+
+Define a reusable polygon drawer:
+
+```logo
+to polygon :sides :size
+  repeat :sides [forward :size right 360 / :sides]
+end
+```
+
+Now you can draw any polygon:
+
+```logo
+polygon 5 100    ; Pentagon
+polygon 8 50     ; Octagon
+polygon 12 30    ; Dodecagon
+```
+
+## Polygon Comparisons
+
+As sides increase, polygons approach circles:
+
+```logo
+polygon 4 50     ; Square - very angular
+polygon 8 50     ; Octagon - more rounded
+polygon 16 50    ; 16-gon - quite smooth
+polygon 36 50    ; Nearly a circle!
+```
+
+## Star Polygons
+
+Stars use a different formula - skip vertices:
+
+### 5-Pointed Star
+```logo
+repeat 5 [forward 100 right 144]   ; 144 = 360 × 2 ÷ 5
+```
+
+### 6-Pointed Star (Star of David)
+```logo
+repeat 3 [forward 100 right 120]   ; First triangle
+right 60
+repeat 3 [forward 100 right 120]   ; Second triangle
+```
+
+## Nested Polygons
+
+Draw polygons inside each other:
+
+```logo
+repeat 6 [forward 100 right 60]
+penup
+forward 20
+right 90
+forward 10
+left 90
+pendown
+repeat 6 [forward 60 right 60]
+```
+
+## Try It
+
+1. Draw all polygons from 3 to 10 sides
+2. Create a honeycomb pattern using hexagons
+3. Make a star with 7 points (hint: right 360 × 3 ÷ 7)

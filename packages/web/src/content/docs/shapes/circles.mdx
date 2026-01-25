@@ -1,0 +1,88 @@
+---
+title: Circles
+description: Drawing circles and arcs
+---
+
+## The Circle Trick
+
+There's no "circle" command in Logo. Instead, we fake it using many tiny steps and turns:
+
+```logo
+repeat 360 [forward 1 right 1]
+```
+
+This draws a 360-sided polygon - which looks like a circle!
+
+## How It Works
+
+- Move forward a tiny bit
+- Turn a tiny bit
+- Repeat 360 times (once for each degree)
+
+The turtle traces out a smooth curve.
+
+## Bigger Circles
+
+For larger circles, increase the step size:
+
+```logo
+repeat 360 [forward 2 right 1]    ; Bigger circle
+repeat 360 [forward 0.5 right 1]  ; Smaller circle
+```
+
+## Faster Circles
+
+Drawing 360 steps is slow. Use fewer steps with larger turns:
+
+```logo
+repeat 36 [forward 10 right 10]   ; 36-sided polygon, looks circular
+repeat 72 [forward 5 right 5]     ; Smoother
+```
+
+## Arcs
+
+To draw part of a circle, reduce the repeat count:
+
+```logo
+repeat 90 [forward 2 right 1]     ; Quarter circle (90°)
+repeat 180 [forward 2 right 1]    ; Semi-circle (180°)
+repeat 270 [forward 2 right 1]    ; Three-quarter circle
+```
+
+## Semicircle
+
+A useful building block:
+
+```logo
+repeat 180 [forward 1 right 1]
+```
+
+## Concentric Circles
+
+Draw circles inside circles:
+
+```logo
+repeat 360 [forward 1 right 1]
+penup
+home
+left 90
+forward 50
+right 90
+pendown
+repeat 360 [forward 0.7 right 1]
+```
+
+## Circle Pattern
+
+```logo
+repeat 36 [
+  repeat 360 [forward 0.5 right 1]
+  right 10
+]
+```
+
+## Try It
+
+1. Draw a smiley face (circle with two small circles for eyes, arc for mouth)
+2. Create a target (concentric circles)
+3. Draw a flower using arcs

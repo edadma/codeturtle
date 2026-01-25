@@ -1,0 +1,114 @@
+---
+title: Variables
+description: Store and use values in your programs
+---
+
+## What is a Variable?
+
+A variable is a named container that holds a value. You can change this value and use it in your code.
+
+## Creating Variables
+
+Use `make` to create a variable:
+
+```logo
+make "size 100
+```
+
+This creates a variable named `size` with value `100`.
+
+## Using Variables
+
+Put a colon before the name to get its value:
+
+```logo
+make "size 100
+forward :size          ; Moves forward 100
+```
+
+## Why the Different Symbols?
+
+- `"size` - The **name** of the variable (with quote)
+- `:size` - The **value** of the variable (with colon)
+
+Think of it as:
+- Quote = "This is the word 'size'"
+- Colon = "Give me what's inside 'size'"
+
+## Changing Variables
+
+Update a variable's value:
+
+```logo
+make "size 50
+forward :size          ; 50
+
+make "size 100
+forward :size          ; 100
+
+make "size :size + 50  ; Add 50 to current value
+forward :size          ; 150
+```
+
+## Growing Spiral
+
+Variables are perfect for patterns that change:
+
+```logo
+make "size 10
+repeat 50 [
+  forward :size
+  right 90
+  make "size :size + 5
+]
+```
+
+Each side gets 5 units longer!
+
+## Color Cycling
+
+```logo
+make "colors [red orange yellow green blue purple]
+make "i 1
+repeat 6 [
+  setpencolor item :i :colors
+  forward 100
+  right 60
+  make "i :i + 1
+]
+```
+
+## Local vs Global Variables
+
+Inside procedures, use `localmake` for local variables:
+
+```logo
+to spiral :turns
+  localmake "size 5
+  repeat :turns [
+    forward :size
+    right 15
+    localmake "size :size + 3
+  ]
+end
+```
+
+Local variables only exist inside the procedure.
+
+## Calculations
+
+Variables can hold calculated values:
+
+```logo
+make "side 100
+make "angle 360 / 5           ; 72
+make "halfside :side / 2      ; 50
+
+repeat 5 [forward :side right :angle]
+```
+
+## Try It
+
+1. Create a spiral where the turn angle increases each step
+2. Make a "growing squares" pattern using a size variable
+3. Draw a rainbow using a color list and index variable

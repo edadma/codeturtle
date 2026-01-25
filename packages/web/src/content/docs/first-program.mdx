@@ -1,0 +1,65 @@
+---
+title: Your First Program
+description: Write your first Logo program and draw a square
+---
+
+## Drawing a Line
+
+Let's start simple. Type this command:
+
+```logo
+forward 100
+```
+
+The turtle moves forward 100 steps, drawing a line behind it. Congratulations - you just wrote code!
+
+## Making a Turn
+
+Now let's turn the turtle:
+
+```logo
+right 90
+```
+
+The turtle rotates 90 degrees to the right (clockwise). It doesn't move, just changes direction.
+
+## Drawing a Square
+
+A square has 4 sides and 4 corners. Each corner is a 90-degree turn. Here's how to draw one:
+
+```logo
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+forward 100
+right 90
+```
+
+You just drew a square! The turtle moved forward, turned, moved forward, turned... four times total.
+
+## Making it Cleaner
+
+That was a lot of typing. Notice we repeated the same two commands 4 times? In the next lessons, you'll learn how to use `repeat` to simplify this:
+
+```logo
+repeat 4 [forward 100 right 90]
+```
+
+One line instead of eight! That's the power of programming.
+
+## Try These Challenges
+
+1. **Draw a bigger square** - Change `100` to `200`
+2. **Draw a rectangle** - Use different lengths for width and height
+3. **Draw a triangle** - Hint: use `120` degrees for turns
+
+## What's Next?
+
+Now that you can move and turn the turtle, let's explore:
+
+- [Moving the Turtle](/basics/movement/) - More about `forward` and `back`
+- [Turning](/basics/turning/) - Angles and direction
+- [Repeat Loops](/concepts/repeat/) - Stop repeating yourself!

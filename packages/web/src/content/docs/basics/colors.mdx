@@ -1,0 +1,85 @@
+---
+title: Colors
+description: Add color to your turtle drawings
+---
+
+## Changing Pen Color
+
+Use `setpencolor` (or `setpc`) to change the drawing color:
+
+```logo
+setpencolor "red
+forward 100
+
+setpencolor "blue
+forward 100
+```
+
+## Color Names
+
+Common color names you can use:
+
+| Color | Name |
+|-------|------|
+| 🔴 | `"red` |
+| 🟢 | `"green` |
+| 🔵 | `"blue` |
+| 🟡 | `"yellow` |
+| 🟠 | `"orange` |
+| 🟣 | `"purple` |
+| ⚫ | `"black` |
+| ⚪ | `"white` |
+
+Note the quote mark before the color name - this tells Logo it's a word, not a command.
+
+## RGB Colors
+
+For more control, use RGB (Red, Green, Blue) values from 0-255:
+
+```logo
+setpencolor [255 0 0]      ; Red
+setpencolor [0 255 0]      ; Green
+setpencolor [0 0 255]      ; Blue
+setpencolor [255 165 0]    ; Orange
+setpencolor [128 0 128]    ; Purple
+```
+
+## Pen Size
+
+Make thicker or thinner lines:
+
+```logo
+setpensize 1       ; Thin line (default)
+setpensize 5       ; Medium line
+setpensize 10      ; Thick line
+```
+
+## Rainbow Square
+
+Combine colors with shapes:
+
+```logo
+setpensize 3
+
+setpencolor "red
+forward 100
+right 90
+
+setpencolor "yellow
+forward 100
+right 90
+
+setpencolor "green
+forward 100
+right 90
+
+setpencolor "blue
+forward 100
+right 90
+```
+
+## Try It
+
+1. Draw a rainbow - 7 arcs in different colors
+2. Create a thick blue square and a thin red triangle
+3. Experiment with RGB values to find your favorite color

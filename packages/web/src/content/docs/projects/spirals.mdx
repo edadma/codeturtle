@@ -1,0 +1,145 @@
+---
+title: Spiral Art
+description: Create beautiful spiral patterns
+---
+
+## Basic Square Spiral
+
+The classic spiral - turns and grows:
+
+```logo
+make "size 5
+repeat 100 [
+  forward :size
+  right 90
+  make "size :size + 3
+]
+```
+
+## Triangular Spiral
+
+Change the angle for different effects:
+
+```logo
+make "size 5
+repeat 60 [
+  forward :size
+  right 120
+  make "size :size + 3
+]
+```
+
+## Rainbow Spiral
+
+Add color that cycles:
+
+```logo
+make "colors [red orange yellow green blue purple]
+make "size 5
+make "i 1
+repeat 100 [
+  setpencolor item (remainder :i 6) + 1 :colors
+  forward :size
+  right 91
+  make "size :size + 2
+  make "i :i + 1
+]
+```
+
+## Fibonacci Spiral
+
+Based on the golden ratio:
+
+```logo
+to fibspiral :a :b :count
+  if :count = 0 [stop]
+
+  repeat 90 [
+    forward :a / 90
+    right 1
+  ]
+
+  fibspiral :b :a + :b :count - 1
+end
+
+fibspiral 5 8 10
+```
+
+## Double Spiral
+
+Two spirals intertwined:
+
+```logo
+to doublespiral
+  make "size 5
+  repeat 50 [
+    setpencolor "blue
+    forward :size
+    right 90
+    make "size :size + 4
+  ]
+
+  penup home pendown
+
+  make "size 5
+  repeat 50 [
+    setpencolor "red
+    forward :size
+    right 90
+    make "size :size + 4
+    right 5
+  ]
+end
+
+doublespiral
+```
+
+## Spiral of Squares
+
+```logo
+repeat 36 [
+  repeat 4 [forward 50 right 90]
+  right 10
+  penup forward 5 pendown
+]
+```
+
+## Archimedean Spiral
+
+A smooth, even spiral:
+
+```logo
+make "angle 0
+make "radius 0
+repeat 500 [
+  penup
+  home
+  right :angle
+  forward :radius
+  pendown
+  forward 1
+  make "angle :angle + 5
+  make "radius :radius + 0.5
+]
+```
+
+## Challenge: Spiral Galaxy
+
+Combine multiple spiral arms:
+
+```logo
+to spiralarm
+  make "size 1
+  repeat 80 [
+    forward :size
+    right 25
+    make "size :size + 0.5
+  ]
+end
+
+repeat 5 [
+  spiralarm
+  penup home pendown
+  right 72
+]
+```

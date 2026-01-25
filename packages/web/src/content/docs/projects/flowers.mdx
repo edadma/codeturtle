@@ -1,0 +1,203 @@
+---
+title: Flowers
+description: Create beautiful flower patterns
+---
+
+## Simple Flower
+
+A flower made of overlapping circles:
+
+```logo
+to petal
+  repeat 60 [forward 2 right 2]
+  repeat 60 [forward 2 right 2]
+end
+
+to flower :petals
+  repeat :petals [
+    petal
+    right 360 / :petals
+  ]
+end
+
+flower 6
+```
+
+## Daisy
+
+Thin petals radiating from center:
+
+```logo
+to daisy :petals :length
+  repeat :petals [
+    forward :length
+    back :length
+    right 360 / :petals
+  ]
+end
+
+setpensize 3
+setpencolor "yellow
+daisy 24 60
+```
+
+## Rose Spiral
+
+A rose-like spiral pattern:
+
+```logo
+to rose
+  make "angle 0
+  repeat 200 [
+    forward 1
+    right 1
+    make "angle :angle + 1
+    if remainder :angle 60 = 0 [right 30]
+  ]
+end
+
+setpencolor "red
+rose
+```
+
+## Sunflower
+
+Fibonacci-inspired seed pattern:
+
+```logo
+to sunflower :seeds
+  make "angle 0
+  repeat :seeds [
+    penup
+    home
+    right :angle
+    forward sqrt repcount * 4
+    pendown
+    repeat 36 [forward 0.5 right 10]
+    make "angle :angle + 137.5  ; Golden angle
+  ]
+end
+
+sunflower 200
+```
+
+## Lotus
+
+Layered petals:
+
+```logo
+to lotuspetal :size
+  repeat 30 [forward :size / 30 right 2]
+  repeat 30 [forward :size / 30 right 2]
+end
+
+to lotus :layers :petalcount
+  repeat :layers [
+    setpencolor item repcount [pink hotpink deeppink]
+    repeat :petalcount [
+      lotuspetal 40 + repcount * 10
+      right 360 / :petalcount
+    ]
+    right 360 / :petalcount / 2
+  ]
+end
+
+lotus 3 8
+```
+
+## Marigold
+
+Dense, rounded petals:
+
+```logo
+to marigold
+  repeat 36 [
+    setpencolor "orange
+    repeat 18 [forward 3 right 5]
+    repeat 18 [forward 3 right 5]
+    right 10
+  ]
+end
+
+marigold
+```
+
+## Flower Garden
+
+Multiple flowers arranged:
+
+```logo
+to simpleflower :size :color
+  setpencolor :color
+  repeat 6 [
+    repeat 30 [forward :size / 30 right 2]
+    repeat 30 [forward :size / 30 right 2]
+    right 60
+  ]
+end
+
+to garden
+  penup setxy -100 50 pendown
+  simpleflower 40 "red
+
+  penup setxy 0 80 pendown
+  simpleflower 50 "yellow
+
+  penup setxy 100 30 pendown
+  simpleflower 35 "purple
+
+  penup setxy -50 -50 pendown
+  simpleflower 45 "pink
+end
+
+garden
+```
+
+## Mandala Flower
+
+Complex circular pattern:
+
+```logo
+to mandala
+  repeat 36 [
+    repeat 4 [forward 50 right 90]
+    right 10
+  ]
+  repeat 36 [
+    repeat 3 [forward 30 right 120]
+    right 10
+  ]
+end
+
+mandala
+```
+
+## Cherry Blossom Branch
+
+Flowers on a branch:
+
+```logo
+to blossom
+  setpencolor "pink
+  repeat 5 [
+    forward 8
+    back 8
+    right 72
+  ]
+end
+
+to branch :size :depth
+  if :depth = 0 [blossom stop]
+  setpencolor "brown
+  forward :size
+  left 30
+  branch :size * 0.7 :depth - 1
+  right 60
+  branch :size * 0.7 :depth - 1
+  left 30
+  back :size
+end
+
+penup back 100 pendown
+branch 50 5
+```
