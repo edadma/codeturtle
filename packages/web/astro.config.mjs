@@ -19,7 +19,7 @@ export default defineConfig({
         alt: 'CodeTurtle Logo',
       },
       social: [
-        { icon: 'github', label: 'GitHub', href: 'https://github.com/codeturtle' },
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/edadma/codeturtle' },
       ],
       sidebar: [
         {
