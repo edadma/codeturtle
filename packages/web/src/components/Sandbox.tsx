@@ -113,6 +113,7 @@ export function Sandbox({
           onReady={(term) => {
             term.writeln('Type Logo commands here.')
             term.writeln('')
+            term.focus()
           }}
           style={{ height: '100%', width: '100%' }}
         />
