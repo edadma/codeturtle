@@ -3,89 +3,340 @@ title: Command Reference
 description: Complete list of Logo commands
 ---
 
-## Movement Commands
+## Turtle Movement
 
-| Command | Short | Description | Example |
-|---------|-------|-------------|---------|
-| `forward` | `fd` | Move forward | `forward 100` |
-| `back` | `bk` | Move backward | `back 50` |
-| `right` | `rt` | Turn clockwise | `right 90` |
-| `left` | `lt` | Turn counter-clockwise | `left 45` |
-| `home` | | Return to center | `home` |
-| `setxy` | | Go to coordinates | `setxy 100 50` |
-| `setx` | | Set x position | `setx 100` |
-| `sety` | | Set y position | `sety -50` |
-| `setheading` | `seth` | Set direction | `setheading 90` |
+| Command | Short | Description |
+|---------|-------|-------------|
+| `forward` | `fd` | Move forward by distance |
+| `back` | `bk` | Move backward by distance |
+| `right` | `rt` | Turn clockwise by degrees |
+| `left` | `lt` | Turn counter-clockwise by degrees |
+| `home` | | Return to center, heading north |
+| `setxy` | | Set position to x, y coordinates |
+| `setpos` | | Set position from `[x y]` list |
+| `setx` | | Set x coordinate only |
+| `sety` | | Set y coordinate only |
+| `setheading` | `seth` | Set heading (0=north, 90=east) |
+| `arc` | | Draw arc with angle and radius |
 
-## Pen Commands
+## Position Queries
 
-| Command | Short | Description | Example |
-|---------|-------|-------------|---------|
-| `penup` | `pu` | Stop drawing | `penup` |
-| `pendown` | `pd` | Start drawing | `pendown` |
-| `setpencolor` | `setpc` | Change pen color | `setpencolor "red` |
-| `setpensize` | | Change line width | `setpensize 5` |
+| Command | Returns | Description |
+|---------|---------|-------------|
+| `xcor` | Number | Current x coordinate |
+| `ycor` | Number | Current y coordinate |
+| `pos` | Complex | Current position |
+| `heading` | Number | Current heading in degrees |
+| `towards` | Number | Heading toward `[x y]` point |
+| `distance` | Number | Distance to `[x y]` point |
+
+## Pen Control
+
+| Command | Short | Description |
+|---------|-------|-------------|
+| `penup` | `pu` | Lift pen (stop drawing) |
+| `pendown` | `pd` | Lower pen (start drawing) |
+| `penpaint` | `ppt` | Set pen mode to paint (normal) |
+| `penerase` | `pe` | Set pen mode to erase |
+| `penreverse` | `px` | Set pen mode to XOR |
+| `setpensize` | | Set pen width |
+| `setcolor` | | Set pen color (name, number, or `[r g b]`) |
+
+## Pen Queries
+
+| Command | Short | Returns | Description |
+|---------|-------|---------|-------------|
+| `pendownp` | `pendown?` | Boolean | True if pen is down |
+| `penmode` | | Word | Current mode (paint/erase/reverse) |
+| `pensize` | | List | Pen size as `[width width]` |
+| `pencolor` | `pc` | List | Pen color as `[r g b]` |
 
 ## Screen Commands
 
-| Command | Short | Description | Example |
-|---------|-------|-------------|---------|
-| `clearscreen` | `cs` | Clear and reset | `clearscreen` |
-| `clean` | | Clear drawings only | `clean` |
-| `hideturtle` | `ht` | Hide turtle | `hideturtle` |
-| `showturtle` | `st` | Show turtle | `showturtle` |
+| Command | Short | Description |
+|---------|-------|-------------|
+| `clearscreen` | `cs` | Clear graphics and reset turtle |
+| `clean` | | Erase graphics without moving turtle |
+| `hideturtle` | `ht` | Hide turtle |
+| `showturtle` | `st` | Show turtle |
+| `window` | | Set unbounded screen mode |
+| `fence` | | Error when turtle hits boundary |
+| `wrap` | | Wrap around screen edges |
+| `setbackground` | `setbg` | Set background color |
+| `label` | | Draw text at turtle position |
 
-## Control Structures
+## Screen Queries
+
+| Command | Short | Returns | Description |
+|---------|-------|---------|-------------|
+| `shownp` | `shown?` | Boolean | True if turtle is visible |
+| `screenmode` | | Word | Current screen mode |
+| `background` | `bg` | List | Background color as `[r g b]` |
+
+## Control Flow
 
 | Command | Description | Example |
 |---------|-------------|---------|
 | `repeat` | Loop n times | `repeat 4 [fd 100 rt 90]` |
+| `for` | Loop with counter | `for [i 1 10] [print :i]` |
+| `while` | Loop while true | `while :x > 0 [make "x :x - 1]` |
+| `until` | Loop until true | `until :x = 0 [make "x :x - 1]` |
+| `forever` | Loop forever | `forever [fd 1 rt 1]` |
+| `do.while` | Run then loop while | `do.while [fd 10] [:x > 0]` |
+| `do.until` | Run then loop until | `do.until [fd 10] [:x = 0]` |
 | `if` | Conditional | `if :x > 10 [fd 100]` |
 | `ifelse` | If-then-else | `ifelse :x > 0 [fd :x] [bk :x]` |
+| `test` | Set test flag | `test :x > 0` |
+| `iftrue` / `ift` | Run if test was true | `iftrue [fd 100]` |
+| `iffalse` / `iff` | Run if test was false | `iffalse [bk 100]` |
+| `case` | Match value | `case :x [[1] [print "one] [2] [print "two]]` |
+| `cond` | Multiple conditions | `cond [[:x > 0] [print "pos] [:x < 0] [print "neg]]` |
 | `stop` | Exit procedure | `if :n = 0 [stop]` |
+| `output` / `op` | Return value | `output :x * 2` |
+| `repcount` | Current iteration | `repeat 5 [print repcount]` |
 
 ## Variables
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `make` | Create/set variable | `make "size 100` |
-| `localmake` | Local variable | `localmake "i 1` |
+| `make` | Set variable | `make "size 100` |
+| `thing` | Get variable by name | `thing "size` |
+| `local` | Declare local variable | `local "temp` |
+| `localmake` | Declare and set local | `localmake "i 1` |
 | `:name` | Get variable value | `forward :size` |
 
 ## Procedures
 
+```logo
+to square :size
+  repeat 4 [forward :size right 90]
+end
+```
+
+| Command | Description |
+|---------|-------------|
+| `to` | Start procedure definition |
+| `end` | End procedure definition |
+| `run` | Parse and execute code |
+| `runresult` | Run and wrap output in list |
+| `apply` | Call template with list args |
+| `invoke` | Call procedure with list args |
+
+## List Operations
+
+### Construction
+
+| Command | Short | Description | Example |
+|---------|-------|-------------|---------|
+| `list` | | Create list | `list 1 2 3` → `[1 2 3]` |
+| `sentence` | `se` | Create flat list | `se [1 2] [3 4]` → `[1 2 3 4]` |
+| `fput` | | Prepend element | `fput 0 [1 2]` → `[0 1 2]` |
+| `lput` | | Append element | `lput 3 [1 2]` → `[1 2 3]` |
+| `combine` | | Concat or fput | |
+| `range` / `iseq` | | Integer sequence | `range 1 5` → `[1 2 3 4 5]` |
+| `rseq` | | Real sequence | `rseq 0 1 5` → `[0 0.25 0.5 0.75 1]` |
+| `reverse` | | Reverse list | `reverse [1 2 3]` → `[3 2 1]` |
+
+### Accessors
+
+| Command | Short | Description | Example |
+|---------|-------|-------------|---------|
+| `first` | | First element | `first [1 2 3]` → `1` |
+| `last` | | Last element | `last [1 2 3]` → `3` |
+| `butfirst` | `bf` | All but first | `bf [1 2 3]` → `[2 3]` |
+| `butlast` | `bl` | All but last | `bl [1 2 3]` → `[1 2]` |
+| `item` | | Element at index | `item 2 [a b c]` → `b` |
+| `count` | | Length | `count [1 2 3]` → `3` |
+| `pick` | | Random element | `pick [1 2 3]` → random |
+| `member` | | Tail from element | `member "b [a b c]` → `[b c]` |
+| `memberp` | `member?` | Is member? | `member? "b [a b c]` → `true` |
+| `firsts` | | First of each | `firsts [[1 2] [3 4]]` → `[1 3]` |
+| `butfirsts` | `bfs` | Butfirst of each | |
+
+### Mutation
+
+| Command | Description |
+|---------|-------------|
+| `setitem` | Set list element: `setitem 2 "mylist "new` |
+| `push` | Add to front of list variable |
+| `pop` | Remove and return first |
+| `queue` | Add to end of list variable |
+| `dequeue` | Remove and return first |
+
+### Filtering
+
 | Command | Description | Example |
 |---------|-------------|---------|
-| `to` | Define procedure | `to square :size` |
-| `end` | End definition | `end` |
+| `remove` | Remove all occurrences | `remove "b [a b c b]` → `[a c]` |
+| `remdup` | Remove duplicates | `remdup [1 1 2 2]` → `[1 2]` |
 
-## Math Operations
+## Word Operations
 
-| Operator | Description | Example |
-|----------|-------------|---------|
-| `+` | Addition | `:x + 10` |
-| `-` | Subtraction | `:x - 5` |
-| `*` | Multiplication | `:x * 2` |
-| `/` | Division | `360 / :sides` |
-| `remainder` | Modulo | `remainder :i 6` |
-| `sqrt` | Square root | `sqrt 2` |
-| `random` | Random number | `random 100` |
+| Command | Description | Example |
+|---------|-------------|---------|
+| `word` | Concatenate words | `word "hel "lo` → `"hello` |
+| `first` | First character | `first "hello` → `"h` |
+| `last` | Last character | `last "hello` → `"o` |
+| `butfirst` / `bf` | All but first char | `bf "hello` → `"ello` |
+| `butlast` / `bl` | All but last char | `bl "hello` → `"hell` |
+| `count` | Length | `count "hello` → `5` |
+| `ascii` | ASCII value | `ascii "A` → `65` |
+| `char` | Character from code | `char 65` → `"A` |
+| `lowercase` | Convert to lower | `lowercase "HI` → `"hi` |
+| `uppercase` | Convert to upper | `uppercase "hi` → `"HI` |
 
-## Comparison
+## Higher-Order Functions
 
-| Operator | Description | Example |
-|----------|-------------|---------|
-| `=` | Equal | `:x = 0` |
-| `<` | Less than | `:x < 10` |
-| `>` | Greater than | `:x > 5` |
-| `<=` | Less or equal | `:x <= 100` |
-| `>=` | Greater or equal | `:x >= 0` |
+| Command | Description | Example |
+|---------|-------------|---------|
+| `map` | Apply to each element | `map [? * 2] [1 2 3]` → `[2 4 6]` |
+| `map.se` | Map and flatten | |
+| `filter` | Keep matching elements | `filter [? > 2] [1 2 3 4]` → `[3 4]` |
+| `find` | First matching element | `find [? > 2] [1 2 3 4]` → `3` |
+| `reduce` | Fold with binary op | `reduce [?1 + ?2] [1 2 3 4]` → `10` |
+| `foreach` | Apply for side effects | `foreach [print ?] [1 2 3]` |
 
-## Special Values
+In templates: `?` is current element, `?1` and `?2` for reduce.
 
-| Value | Description |
-|-------|-------------|
-| `repcount` | Current repeat iteration |
-| `heading` | Current direction (degrees) |
-| `xcor` | Current x position |
-| `ycor` | Current y position |
+## Math - Basic
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `sum` | Add numbers | `sum 1 2 3` → `6` |
+| `difference` | Subtract | `difference 10 3` → `7` |
+| `product` | Multiply | `product 2 3 4` → `24` |
+| `quotient` | Divide | `quotient 10 3` → `3.33...` |
+| `remainder` / `mod` | Modulo | `remainder 10 3` → `1` |
+| `modulo` | Floored modulo | |
+| `pow` | Power | `pow 2 8` → `256` |
+| `sqrt` | Square root | `sqrt 16` → `4` |
+| `abs` | Absolute value | `abs -5` → `5` |
+| `negate` / `minus` | Negate | `minus 5` → `-5` |
+| `int` | Truncate | `int 3.7` → `3` |
+| `round` | Round | `round 3.7` → `4` |
+| `floor` | Floor | `floor 3.7` → `3` |
+| `ceiling` / `ceil` | Ceiling | `ceiling 3.2` → `4` |
+| `sign` | Sign (-1, 0, 1) | `sign -5` → `-1` |
+| `min` | Minimum | `min 3 1 4` → `1` |
+| `max` | Maximum | `max 3 1 4` → `4` |
+| `random` | Random 0 to n-1 | `random 100` → 0-99 |
+| `rerandom` | Reset random seed | `rerandom 42` |
+
+## Math - Trigonometry (degrees)
+
+| Command | Description |
+|---------|-------------|
+| `sin` | Sine |
+| `cos` | Cosine |
+| `tan` | Tangent |
+| `asin` / `arcsin` | Arc sine |
+| `acos` / `arccos` | Arc cosine |
+| `atan` / `arctan` | Arc tangent |
+| `atan2` | atan(y/x) |
+
+## Math - Trigonometry (radians)
+
+| Command | Description |
+|---------|-------------|
+| `radsin` | Sine (radians) |
+| `radcos` | Cosine (radians) |
+| `radtan` | Tangent (radians) |
+| `radarcsin` | Arc sine (radians) |
+| `radarccos` | Arc cosine (radians) |
+| `radarctan` | Arc tangent (radians) |
+
+## Math - Other
+
+| Command | Description |
+|---------|-------------|
+| `exp` | e^x |
+| `ln` | Natural log |
+| `log10` | Base-10 log |
+| `sinh` | Hyperbolic sine |
+| `cosh` | Hyperbolic cosine |
+| `tanh` | Hyperbolic tangent |
+
+## Math - Constants
+
+| Command | Value |
+|---------|-------|
+| `pi` | 3.14159... |
+| `e` | 2.71828... |
+
+## Math - Bitwise
+
+| Command | Description |
+|---------|-------------|
+| `bitand` | Bitwise AND |
+| `bitor` | Bitwise OR |
+| `bitxor` | Bitwise XOR |
+| `bitnot` | Bitwise NOT |
+| `ashift` | Arithmetic shift |
+| `lshift` | Logical shift |
+
+## Logic & Comparison
+
+| Command | Short | Description |
+|---------|-------|-------------|
+| `and` | | Logical AND |
+| `or` | | Logical OR |
+| `not` | | Logical NOT |
+| `equalp` | `equal?` | Equal |
+| `notequalp` | `notequal?` | Not equal |
+| `lessp` | `less?` | Less than |
+| `greaterp` | `greater?` | Greater than |
+| `lessequalp` | `lessequal?` | Less or equal |
+| `greaterequalp` | `greaterequal?` | Greater or equal |
+| `beforep` | `before?` | String ordering |
+| `substringp` | `substring?` | Is substring |
+
+## Type Checking
+
+| Command | Short | Description |
+|---------|-------|-------------|
+| `listp` | `list?` | Is list? |
+| `wordp` | `word?` | Is word? |
+| `numberp` | `number?` | Is number? |
+| `emptyp` | `empty?` | Is empty? |
+
+## Workspace
+
+| Command | Short | Description |
+|---------|-------|-------------|
+| `namep` | `name?` | Variable exists? |
+| `definedp` | `defined?` | Procedure/primitive exists? |
+| `primitivep` | `primitive?` | Is primitive? |
+| `procedurep` | `procedure?` | Is user procedure? |
+| `procedures` | | List all user procedures |
+| `primitives` | | List all primitives |
+| `names` | | List all variables |
+
+## Input/Output
+
+| Command | Description |
+|---------|-------------|
+| `print` / `pr` | Print with newline |
+| `type` | Print without newline |
+| `show` | Print with formatting |
+| `readlist` | Read line as list |
+| `readword` | Read line as word |
+| `readchar` | Read single character |
+| `parse` | Parse string to tokens |
+| `runparse` | Parse with substitution |
+| `form` | Format number: `form 3.14159 6 2` → `"  3.14` |
+
+## Time
+
+| Command | Returns |
+|---------|---------|
+| `time` | `[hour minute second]` (UTC) |
+| `date` | `[year month day]` (UTC) |
+| `timemilli` | Milliseconds since epoch |
+
+## Utility
+
+| Command | Description |
+|---------|-------------|
+| `ignore` | Discard value |
+| `gensym` | Generate unique symbol (G1, G2...) |
+| `quoted` | Add quote to word |
