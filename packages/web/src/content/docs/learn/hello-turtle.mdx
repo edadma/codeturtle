@@ -1,0 +1,66 @@
+---
+title: Hello, Turtle!
+description: Meet your turtle and give it your first command
+---
+
+import SandboxWrapper from '../../../components/SandboxWrapper.tsx'
+
+## Meet Your Turtle
+
+See that little triangle in the middle of the canvas? That's your **turtle**!
+
+The turtle holds a pen and follows your commands. When you tell it to move, it draws a line behind it.
+
+Try typing `fd 100` in the terminal below and press Enter:
+
+<SandboxWrapper canvasSize={300} client:only="react" />
+
+The turtle walked forward 100 steps and drew a line!
+
+## Turn Around
+
+Now try making the turtle turn. Type `rt 90` and press Enter.
+
+The turtle rotated 90 degrees to the right. It's now facing a different direction!
+
+Type `fd 100` again - see how it draws in the new direction?
+
+## Draw a Square
+
+Keep going! Type these commands one at a time:
+
+```
+rt 90
+fd 100
+rt 90
+fd 100
+```
+
+You just drew a square! The turtle moved forward, turned, moved forward, turned... four times total.
+
+## Quick Commands
+
+Here are the shortcuts you'll use most:
+
+| Command | What it does |
+|---------|--------------|
+| `fd 100` | Move **f**orwar**d** 100 steps |
+| `bk 50` | Move **b**ac**k** 50 steps |
+| `rt 90` | Turn **r**igh**t** 90 degrees |
+| `lt 90` | Turn **l**ef**t** 90 degrees |
+| `cs` | **C**lear **s**creen (start over) |
+
+## Try It!
+
+Experiment in the sandbox above. Here are some ideas:
+
+- Draw a bigger square (use `fd 150` instead of `fd 100`)
+- Draw a triangle (hint: use `rt 120` for the turns)
+- Make the turtle go backwards with `bk`
+- Clear and start fresh with `cs`
+
+## What's Next?
+
+You've learned how to move and turn the turtle. Ready to learn a trick that makes drawing shapes much easier?
+
+[Your First Program →](/first-program/)

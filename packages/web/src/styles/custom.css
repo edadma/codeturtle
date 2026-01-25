@@ -1,16 +1,30 @@
 @import "tailwindcss";
+@plugin "daisyui" {
+  prefix: "d-";
+}
+@source "../node_modules/@aster-ui/prefixed";
 
 :root {
   --sl-color-accent: #10b981;
   --sl-color-accent-low: #064e3b;
   --sl-color-accent-high: #6ee7b7;
   --sl-color-bg-nav: var(--sl-color-bg);
+
+  /* DaisyUI variables for asterui useTheme() - dark mode default */
+  --color-base-100: var(--sl-color-bg);
+  --color-base-content: #e2e8f0;
+  --color-primary: #10b981;
 }
 
 :root[data-theme="light"] {
   --sl-color-accent: #059669;
   --sl-color-accent-low: #d1fae5;
   --sl-color-accent-high: #064e3b;
+
+  /* DaisyUI variables for asterui useTheme() - light mode */
+  --color-base-100: var(--sl-color-bg);
+  --color-base-content: #1f2937;
+  --color-primary: #059669;
 }
 
 /* Turtle canvas styling */
@@ -84,3 +98,29 @@
   padding: 0.2rem 0.4rem;
   border-radius: 0.25rem;
 }
+
+/* Sandbox component styles */
+.sandbox-container {
+  margin: 1.5rem 0;
+  border: 1px solid var(--sl-color-gray-5);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.sandbox-canvas-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem;
+  background: var(--sl-color-gray-6);
+  border-bottom: 1px solid var(--sl-color-gray-5);
+}
+
+.sandbox-canvas {
+  border-radius: 0.25rem;
+}
+
+.sandbox-terminal-wrapper {
+  padding: 0.5rem 0.5rem 0;
+  background: var(--sl-color-gray-6);
+}
+

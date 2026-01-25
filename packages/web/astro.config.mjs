@@ -26,6 +26,7 @@ export default defineConfig({
           label: 'Getting Started',
           items: [
             { label: 'Introduction', slug: 'intro' },
+            { label: 'Hello, Turtle!', slug: 'learn/hello-turtle' },
             { label: 'Your First Program', slug: 'first-program' },
           ],
         },
