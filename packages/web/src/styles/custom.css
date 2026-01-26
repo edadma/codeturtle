@@ -101,26 +101,13 @@
 
 /* Sandbox component styles */
 .sandbox-container {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
   margin: 1.5rem 0;
   border: 1px solid var(--sl-color-gray-5);
-  border-radius: 0.75rem;
   overflow: hidden;
-}
-
-.sandbox-canvas-wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem;
-  background: var(--sl-color-gray-6);
-  border-bottom: 1px solid var(--sl-color-gray-5);
-}
-
-.sandbox-canvas {
-  border-radius: 0.25rem;
-}
-
-.sandbox-terminal-wrapper {
-  padding: 0.5rem 0.5rem 0;
   background: var(--sl-color-gray-6);
 }
+
 

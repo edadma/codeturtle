@@ -3,14 +3,15 @@ import { lazy, Suspense } from 'react'
 const Sandbox = lazy(() => import('./Sandbox'))
 
 export interface SandboxWrapperProps {
+  size?: number
   canvasSize?: number
-  terminalHeight?: number
   speed?: number
 }
 
 export function SandboxWrapper(props: SandboxWrapperProps) {
+  const size = props.size ?? 300
   return (
-    <Suspense fallback={<div style={{ height: (props.canvasSize ?? 300) + (props.terminalHeight ?? 150) + 40, background: '#0f172a', borderRadius: '0.75rem' }} />}>
+    <Suspense fallback={<div style={{ width: size * 2, height: size, background: '#0f172a' }} />}>
       <Sandbox {...props} />
     </Suspense>
   )

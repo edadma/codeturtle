@@ -5,23 +5,24 @@ import type { TerminalRef } from '@aster-ui/prefixed/terminal'
 import { LogoAnimated } from '@edadma/logo'
 
 export interface SandboxProps {
-  /** Canvas size in pixels (square) */
+  /** Size in pixels for visible area (square) */
+  size?: number
+  /** Actual canvas size in pixels (larger than visible area) */
   canvasSize?: number
-  /** Terminal height in pixels */
-  terminalHeight?: number
   /** Animation speed (0 = instant, higher = slower) */
   speed?: number
 }
 
 export function Sandbox({
-  canvasSize = 300,
-  terminalHeight = 125,
+  size = 300,
+  canvasSize = 2000,
   speed = 10,
 }: SandboxProps) {
   const { colors } = useTheme()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const logoRef = useRef<LogoAnimated | null>(null)
   const terminalRef = useRef<TerminalRef>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   // Initialize Logo instance
   useEffect(() => {
@@ -45,6 +46,16 @@ export function Sandbox({
       if (logoRef.current) {
         logoRef.current.stop()
       }
+    }
+  }, [])
+
+  // Center scroll view on mount
+  useEffect(() => {
+    if (scrollContainerRef.current && canvasRef.current) {
+      const container = scrollContainerRef.current
+      const canvas = canvasRef.current
+      container.scrollLeft = (canvas.width - container.clientWidth) / 2
+      container.scrollTop = (canvas.height - container.clientHeight) / 2
     }
   }, [])
 
@@ -88,34 +99,39 @@ export function Sandbox({
   }, [])
 
   return (
-    <div className="not-content sandbox-container" style={{ maxWidth: canvasSize + 16 }}>
+    <div className="not-content sandbox-container">
+      {/* Terminal */}
+      <div
+        className="relative overflow-hidden"
+        style={{ width: size, height: size, background: colors.background }}
+      >
+        <div className="absolute inset-0">
+          <Terminal
+            ref={terminalRef}
+            readline
+            prompt={'\x1b[32m> \x1b[0m'}
+            onLine={handleCommand}
+            onReady={(term) => {
+              term.writeln('Type Logo commands here.')
+              term.writeln('')
+              term.focus()
+            }}
+            style={{ height: '100%', width: '100%' }}
+          />
+        </div>
+      </div>
+
       {/* Canvas */}
-      <div className="sandbox-canvas-wrapper">
+      <div
+        ref={scrollContainerRef}
+        className="overflow-auto"
+        style={{ width: size, height: size, borderLeft: '1px solid var(--sl-color-gray-5)' }}
+      >
         <canvas
           ref={canvasRef}
           width={canvasSize}
           height={canvasSize}
-          className="sandbox-canvas"
           style={{ backgroundColor: colors.background }}
-        />
-      </div>
-
-      {/* Terminal */}
-      <div
-        className="sandbox-terminal-wrapper"
-        style={{ height: terminalHeight }}
-      >
-        <Terminal
-          ref={terminalRef}
-          readline
-          prompt={'\x1b[32m> \x1b[0m'}
-          onLine={handleCommand}
-          onReady={(term) => {
-            term.writeln('Type Logo commands here.')
-            term.writeln('')
-            term.focus()
-          }}
-          style={{ height: '100%', width: '100%' }}
         />
       </div>
     </div>
