@@ -1,0 +1,114 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Logo",
+  "scopeName": "source.logo",
+  "fileTypes": ["logo", "lg"],
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#lists" },
+    { "include": "#variables" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#commands" },
+    { "include": "#operators" }
+  ],
+  "repository": {
+    "comments": {
+      "name": "comment.line.semicolon.logo",
+      "match": ";.*$"
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.logo",
+          "begin": "\"",
+          "end": "(?=\\s|\\]|\\[|\\)|\\(|$)",
+          "patterns": []
+        },
+        {
+          "name": "string.quoted.bar.logo",
+          "begin": "\\|",
+          "end": "\\|"
+        }
+      ]
+    },
+    "lists": {
+      "name": "meta.list.logo",
+      "begin": "\\[",
+      "end": "\\]",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.list.begin.logo" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.list.end.logo" }
+      },
+      "patterns": [
+        { "include": "#comments" },
+        { "include": "#strings" },
+        { "include": "#lists" },
+        { "include": "#variables" },
+        { "include": "#numbers" },
+        { "include": "#keywords" },
+        { "include": "#commands" },
+        { "include": "#operators" }
+      ]
+    },
+    "variables": {
+      "name": "variable.other.logo",
+      "match": ":[a-zA-Z_][a-zA-Z0-9_]*"
+    },
+    "numbers": {
+      "name": "constant.numeric.logo",
+      "match": "-?\\b\\d+\\.?\\d*\\b"
+    },
+    "keywords": {
+      "name": "keyword.control.logo",
+      "match": "\\b(?i)(to|end|if|ifelse|repeat|for|while|until|foreach|stop|output|op|local|make|thing|run|runresult|catch|throw)\\b"
+    },
+    "commands": {
+      "patterns": [
+        {
+          "name": "support.function.movement.logo",
+          "match": "\\b(?i)(fd|forward|bk|back|rt|right|lt|left|home|setxy|setx|sety|setpos|sethead|setheading|seth)\\b"
+        },
+        {
+          "name": "support.function.pen.logo",
+          "match": "\\b(?i)(pu|penup|pd|pendown|pe|penerase|px|setpencolor|setpc|setpensize|setpw|pencolor|pc)\\b"
+        },
+        {
+          "name": "support.function.screen.logo",
+          "match": "\\b(?i)(cs|clearscreen|clean|clear|wrap|window|fence|ht|hideturtle|st|showturtle|shown\\?|shownp)\\b"
+        },
+        {
+          "name": "support.function.query.logo",
+          "match": "\\b(?i)(pos|xcor|ycor|heading|towards|distance)\\b"
+        },
+        {
+          "name": "support.function.math.logo",
+          "match": "\\b(?i)(sum|difference|product|quotient|remainder|modulo|abs|int|round|sqrt|power|exp|log|log10|sin|cos|tan|asin|acos|atan|radsin|radcos|radtan|random|rerandom)\\b"
+        },
+        {
+          "name": "support.function.list.logo",
+          "match": "\\b(?i)(first|last|butfirst|bf|butlast|bl|fput|lput|item|count|list|sentence|se|word|member|memberp|member\\?|empty\\?|emptyp|equal\\?|equalp)\\b"
+        },
+        {
+          "name": "support.function.io.logo",
+          "match": "\\b(?i)(print|pr|show|type|readlist|rl|readword|rw|readchar|rc)\\b"
+        },
+        {
+          "name": "support.function.color.logo",
+          "match": "\\b(?i)(setc|setcolor|setbg|setbackground|fill)\\b"
+        },
+        {
+          "name": "support.function.arc.logo",
+          "match": "\\b(?i)(arc|arc2)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "name": "keyword.operator.logo",
+      "match": "\\+|\\-|\\*|\\/|<|>|=|<=|>=|<>"
+    }
+  }
+}

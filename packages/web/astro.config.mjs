@@ -3,6 +3,11 @@ import starlight from '@astrojs/starlight'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
+import { readFileSync } from 'fs'
+
+const logoGrammar = JSON.parse(
+  readFileSync(new URL('./src/grammars/logo.tmLanguage.json', import.meta.url), 'utf-8')
+)
 
 export default defineConfig({
   site: 'https://codeturtle.dev',
@@ -12,6 +17,11 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'CodeTurtle',
+      expressiveCode: {
+        shiki: {
+          langs: [logoGrammar],
+        },
+      },
       description: 'Learn Logo programming with fun turtle graphics tutorials',
       favicon: '/favicon.ico',
       logo: {
