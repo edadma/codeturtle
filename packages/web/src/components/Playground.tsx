@@ -1,29 +1,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Button, Card, Space, Splitter, useTheme, Range, Tooltip } from '@aster-ui/prefixed'
+import { Button, Card, Space, Splitter, useTheme, Range } from '@aster-ui/prefixed'
 import { CodeEditor } from '@aster-ui/prefixed/codeeditor'
-import { EditorView } from '@codemirror/view'
 import { Terminal } from '@aster-ui/prefixed/terminal'
 import type { TerminalRef } from '@aster-ui/prefixed/terminal'
 import { LogoAnimated } from '@edadma/logo'
-
-const editorTheme = EditorView.theme({
-  '.cm-gutters': {
-    backgroundColor: 'oklch(var(--b3))',
-    borderRight: '2px solid oklch(var(--bc) / 0.2)',
-    paddingRight: '4px',
-  },
-  '.cm-lineNumbers .cm-gutterElement': {
-    fontSize: '0.75em',
-    opacity: '0.4',
-    padding: '0 12px 0 8px',
-  },
-  '.cm-content': {
-    outline: 'none',
-  },
-  '&.cm-editor.cm-focused': {
-    outline: 'none',
-  },
-})
 
 const EXAMPLES = {
   square: `repeat 4 [fd 100 rt 90]
@@ -122,7 +102,6 @@ export function Playground() {
 
   const runProgram = useCallback(() => {
     if (!logoRef.current) return
-
     try {
       logoRef.current.clear()
       setIsRunning(true)
@@ -141,7 +120,10 @@ export function Playground() {
     }
   }, [])
 
-  const centerScrollView = useCallback(() => {
+  const clearCanvas = useCallback(() => {
+    if (logoRef.current) {
+      logoRef.current.clear()
+    }
     if (scrollContainerRef.current && canvasRef.current) {
       const container = scrollContainerRef.current
       const canvas = canvasRef.current
@@ -150,21 +132,12 @@ export function Playground() {
     }
   }, [])
 
-  const clearCanvas = useCallback(() => {
-    if (logoRef.current) {
-      logoRef.current.clear()
-    }
-    centerScrollView()
-  }, [centerScrollView])
-
   const clearTerminal = useCallback(() => {
     terminalRef.current?.clear()
-    terminalRef.current?.focus()
   }, [])
 
   const handleCommand = useCallback((line: string) => {
     if (!logoRef.current || !line.trim()) return
-
     try {
       const result = logoRef.current.execute(line)
       if (result !== undefined) {
@@ -181,130 +154,109 @@ export function Playground() {
     setCode(EXAMPLES[name])
   }, [])
 
-  const exampleButtons = (
-    <Space size="xs" wrap>
-      {Object.keys(EXAMPLES).map((name) => (
-        <Button
-          key={name}
-          size="xs"
-          variant="soft"
-          onClick={() => loadExample(name as keyof typeof EXAMPLES)}
-        >
-          {name}
-        </Button>
-      ))}
-    </Space>
-  )
-
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col">
-      <div className="flex-1 min-h-0">
-        <Splitter defaultSizes={[50, 50]} className="h-full">
-          <Splitter.Panel minSize={300}>
-            <Splitter direction="vertical" defaultSizes={[70, 30]} className="h-full">
-              <Splitter.Panel minSize={150}>
-                <Card
-                  title={<span className="flex items-center gap-1">Editor <Tooltip position="bottom" tip="Write your Logo program here"><span className="opacity-50 cursor-help">?</span></Tooltip></span>}
-                  extra={exampleButtons}
-                  className="h-full"
-                  bodyClassName="flex flex-col h-full"
-                >
-                  <Space direction="vertical" size="md" className="flex-1 flex flex-col">
-                    <CodeEditor
-                      value={code}
-                      onChange={setCode}
-                      language="plaintext"
-                      className="flex-1 min-h-0 w-full"
-                      placeholder="Enter Logo code here..."
-                      lineNumbers
-                      highlightActiveLine
-                      bracketMatching
-                      closeBrackets
-                      indentWithTab
-                      bordered
-                      autoFocus
-                      extensions={[editorTheme]}
-                    />
-
-                    <Space size="sm" className="items-center flex-wrap">
-                      <Button color="primary" onClick={runProgram} disabled={isRunning}>
-                        Run
+    <div style={{ height: 'calc(100vh - 8rem)' }}>
+      <Splitter defaultSizes={[50, 50]} className="h-full">
+        <Splitter.Panel minSize={300}>
+          <Splitter direction="vertical" defaultSizes={[70, 30]} className="h-full">
+            <Splitter.Panel minSize={150}>
+              <Card title="Editor" className="h-full" bodyClassName="flex flex-col h-full">
+                <Space direction="vertical" size="md" className="flex-1 flex flex-col">
+                  <Space size="xs" wrap>
+                    {Object.keys(EXAMPLES).map((name) => (
+                      <Button
+                        key={name}
+                        size="xs"
+                        variant="soft"
+                        onClick={() => loadExample(name as keyof typeof EXAMPLES)}
+                      >
+                        {name}
                       </Button>
-                      {isRunning && (
-                        <Button color="error" variant="outline" onClick={stopProgram}>
-                          Stop
-                        </Button>
-                      )}
-                      <Button variant="outline" onClick={clearCanvas} disabled={isRunning}>
-                        Clear
-                      </Button>
-                      <span className="text-sm text-base-content/70 ml-2">Speed:</span>
-                      <Range
-                        min={0}
-                        max={100}
-                        value={100 - speed}
-                        onChange={(value) => setSpeed(100 - value)}
-                        size="sm"
-                        className="w-24"
-                      />
-                      <span className="text-sm text-base-content/70 w-12">
-                        {speed === 0 ? 'Instant' : speed >= 80 ? 'Slow' : speed >= 40 ? 'Medium' : 'Fast'}
-                      </span>
-                    </Space>
+                    ))}
                   </Space>
-                </Card>
-              </Splitter.Panel>
+                  <CodeEditor
+                    value={code}
+                    onChange={setCode}
+                    language="plaintext"
+                    className="flex-1 min-h-0 w-full"
+                    placeholder="Enter Logo code here..."
+                    lineNumbers
+                    highlightActiveLine
+                    bracketMatching
+                    closeBrackets
+                    indentWithTab
+                    bordered
+                  />
+                  <Space size="sm" className="items-center flex-wrap">
+                    <Button color="primary" onClick={runProgram} disabled={isRunning}>
+                      Run
+                    </Button>
+                    {isRunning && (
+                      <Button color="error" variant="outline" onClick={stopProgram}>
+                        Stop
+                      </Button>
+                    )}
+                    <Button variant="outline" onClick={clearCanvas} disabled={isRunning}>
+                      Clear
+                    </Button>
+                    <span className="text-sm opacity-70 ml-2">Speed:</span>
+                    <Range
+                      min={0}
+                      max={100}
+                      value={100 - speed}
+                      onChange={(value) => setSpeed(100 - value)}
+                      size="sm"
+                      className="w-24"
+                    />
+                  </Space>
+                </Space>
+              </Card>
+            </Splitter.Panel>
 
-              <Splitter.Panel minSize={100}>
-                <Card
-                  title={<span className="flex items-center gap-1">Terminal <Tooltip position="bottom" tip="See output and type commands directly"><span className="opacity-50 cursor-help">?</span></Tooltip></span>}
-                  extra={<Button size="xs" variant="ghost" onClick={clearTerminal}>Clear</Button>}
-                  className="h-full"
-                  bodyClassName="flex flex-col h-full"
-                >
-                  <div className="flex-1 min-h-0 relative overflow-hidden">
-                    <div className="absolute inset-0">
-                      <Terminal
-                        ref={terminalRef}
-                        readline
-                        prompt={'\x1b[32m> \x1b[0m'}
-                        onLine={handleCommand}
-                        onReady={(term) => {
-                          term.writeln('Output and errors appear here.')
-                          term.writeln('You can also type commands directly.')
-                          term.writeln('')
-                        }}
-                        style={{ height: '100%', width: '100%' }}
-                      />
-                    </div>
-                  </div>
-                </Card>
-              </Splitter.Panel>
-            </Splitter>
-          </Splitter.Panel>
-
-          <Splitter.Panel minSize={300}>
-            <Card
-              title={<span className="flex items-center gap-1">Canvas <Tooltip position="bottom" tip="Watch the turtle draw"><span className="opacity-50 cursor-help">?</span></Tooltip></span>}
-              className="h-full"
-              bodyClassName="h-full"
-            >
-              <div
-                ref={scrollContainerRef}
-                className="h-full overflow-auto"
+            <Splitter.Panel minSize={100}>
+              <Card
+                title="Terminal"
+                extra={<Button size="xs" variant="ghost" onClick={clearTerminal}>Clear</Button>}
+                className="h-full"
+                bodyClassName="flex flex-col h-full"
               >
-                <canvas
-                  ref={canvasRef}
-                  width={2000}
-                  height={2000}
-                  className="border border-base-300"
-                  style={{ backgroundColor: colors.background }}
-                />
-              </div>
-            </Card>
-          </Splitter.Panel>
-        </Splitter>
-      </div>
+                <div className="flex-1 min-h-0 relative overflow-hidden">
+                  <div className="absolute inset-0">
+                    <Terminal
+                      ref={terminalRef}
+                      readline
+                      prompt={'\x1b[32m> \x1b[0m'}
+                      onLine={handleCommand}
+                      onReady={(term) => {
+                        term.writeln('Output and errors appear here.')
+                        term.writeln('You can also type commands directly.')
+                        term.writeln('')
+                      }}
+                      style={{ height: '100%', width: '100%' }}
+                    />
+                  </div>
+                </div>
+              </Card>
+            </Splitter.Panel>
+          </Splitter>
+        </Splitter.Panel>
+
+        <Splitter.Panel minSize={300}>
+          <Card title="Canvas" className="h-full" bodyClassName="h-full">
+            <div
+              ref={scrollContainerRef}
+              className="h-full overflow-auto"
+            >
+              <canvas
+                ref={canvasRef}
+                width={2000}
+                height={2000}
+                style={{ backgroundColor: colors.background }}
+              />
+            </div>
+          </Card>
+        </Splitter.Panel>
+      </Splitter>
     </div>
   )
 }

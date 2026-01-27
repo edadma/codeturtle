@@ -1,8 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui" {
   prefix: "d-";
+  themes: light --default, dark --prefersdark;
 }
-@source "../node_modules/@aster-ui/prefixed";
+@source "../components/Playground.tsx";
+@source "../components/Sandbox.tsx";
+@source "../../node_modules/@aster-ui/prefixed/dist/**/*.js";
 
 :root {
   --sl-color-accent: #10b981;
@@ -108,6 +111,21 @@
   border: 1px solid var(--sl-color-gray-5);
   overflow: hidden;
   background: var(--sl-color-gray-6);
+}
+
+/* Playground full-width layout */
+html.playground-page .sl-markdown-content {
+  max-width: none;
+}
+
+html.playground-page .content-panel {
+  --sl-content-width: 100%;
+  max-width: none;
+}
+
+.playground-fullwidth {
+  margin: 0;
+  width: 100%;
 }
 
 

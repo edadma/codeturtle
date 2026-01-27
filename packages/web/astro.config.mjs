@@ -13,6 +13,9 @@ export default defineConfig({
   site: 'https://codeturtle.dev',
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ['@codemirror/autocomplete', '@codemirror/commands', '@codemirror/lang-css', '@codemirror/lang-html', '@codemirror/lang-javascript', '@codemirror/lang-json', '@codemirror/lang-markdown', '@codemirror/lang-python', '@codemirror/lang-sql', '@codemirror/lang-xml', '@codemirror/language', '@codemirror/lint', '@codemirror/search', '@codemirror/state', '@codemirror/view'],
+    },
   },
   integrations: [
     starlight({
@@ -30,6 +33,12 @@ export default defineConfig({
       },
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/edadma/codeturtle' },
+      ],
+      head: [
+        {
+          tag: 'script',
+          content: `(()=>{const p=location.pathname.replace(/\\/$/,'');if(p==='/playground')document.documentElement.classList.add('playground-page')})()`,
+        },
       ],
       sidebar: [
         { label: 'Playground', slug: 'playground' },
